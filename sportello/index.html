@@ -1,0 +1,338 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Sportello Servizi Demo</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Layout: colonna centrale stile Apple, sezioni a tutta larghezza alternate bianco / grigio chiarissimo, un solo momento interattivo (documenti + prenotazione) */
+:root{
+  --bg:#ffffff;
+  --bg-alt:#f5f5f7;
+  --ink:#1d1d1f;
+  --ink-2:#6e6e73;
+  --line:#d2d2d7;
+  --accent:#0071e3;
+  --ok:#1d8a4b;
+  --display:-apple-system,BlinkMacSystemFont,"SF Pro Display","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --text:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Helvetica,Arial,sans-serif;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--text);font-size:17px;line-height:1.5;-webkit-font-smoothing:antialiased;
+  -webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:rgba(255,255,255,.85)}
+img{-webkit-user-drag:none}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.band{padding-block:96px}
+.band.alt{background:var(--bg-alt)}
+@media (max-width:640px){.band{padding-block:64px}}
+
+/* banner demo */
+.demo-flag{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:rgba(255,255,255,.82);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--line)}
+.demo-flag .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;height:52px}
+.brand{font-family:var(--display);font-weight:600;font-size:17px;letter-spacing:-.01em}
+.tag{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-2);border:1px solid var(--line);border-radius:999px;padding:4px 10px;white-space:nowrap}
+nav.links{display:flex;gap:24px;font-size:14px}
+nav.links a{color:var(--ink-2);text-decoration:none}
+nav.links a:hover,nav.links a:focus-visible{color:var(--ink)}
+@media (max-width:760px){nav.links{display:none}}
+
+/* hero */
+.hero{padding-block:88px 72px;text-align:center}
+.eyebrow{font-size:14px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-2);margin:0 0 16px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(40px,7vw,80px);line-height:1.04;letter-spacing:-.035em;margin:0 auto;max-width:15ch;text-wrap:balance}
+.hero p.lead{font-size:clamp(19px,2.2vw,24px);color:var(--ink-2);max-width:34ch;margin:24px auto 0;text-wrap:balance}
+.cta-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:36px}
+.btn{font:inherit;font-size:17px;border-radius:999px;padding:12px 24px;border:0;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:transform .2s ease,background .2s ease}
+.btn.primary{background:var(--accent);color:#fff}
+.btn.primary:hover{background:#0077ed}
+.btn.ghost{background:transparent;color:var(--accent)}
+.btn:active{transform:scale(.98)}
+.btn:focus-visible,select:focus-visible,.chip:focus-visible,.slot:focus-visible{outline:3px solid rgba(0,113,227,.4);outline-offset:3px}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:760px;margin:64px auto 0}
+.stat{text-align:center}
+.stat b{display:block;font-family:var(--display);font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.stat span{font-size:14px;color:var(--ink-2)}
+@media (max-width:520px){.stats{grid-template-columns:1fr;gap:24px}}
+
+h2{font-family:var(--display);font-weight:700;font-size:clamp(32px,4.6vw,52px);line-height:1.08;letter-spacing:-.03em;margin:0 0 16px;text-wrap:balance;max-width:20ch}
+.sub{color:var(--ink-2);font-size:clamp(17px,1.8vw,21px);max-width:52ch;margin:0}
+
+/* servizi */
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:48px}
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.grid{grid-template-columns:1fr}}
+.svc{background:var(--bg);border-radius:20px;padding:24px;min-width:0;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s}
+.band.alt .svc{background:var(--bg)}
+.svc:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.08)}
+.svc h3{font-family:var(--display);font-size:20px;letter-spacing:-.01em;margin:14px 0 6px}
+.svc p{margin:0;color:var(--ink-2);font-size:15px}
+.ico{width:36px;height:36px;border-radius:10px;background:var(--bg-alt);display:grid;place-items:center}
+.ico svg{width:20px;height:20px;stroke:var(--ink);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* tool documenti + prenotazione */
+.tool{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;margin-top:48px}
+@media (max-width:860px){.tool{grid-template-columns:1fr}}
+.panel{background:var(--bg);border-radius:24px;padding:28px;min-width:0;border:1px solid var(--line)}
+.panel h3{font-family:var(--display);font-size:22px;letter-spacing:-.015em;margin:0 0 4px}
+.panel .hint{font-size:14px;color:var(--ink-2);margin:0 0 20px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:20px}
+.chip{font:inherit;font-size:14px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:8px 14px;cursor:pointer;transition:all .2s}
+.chip[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+.docs{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.docs li{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;background:var(--bg-alt);border-radius:14px;font-size:15px;animation:fadeUp .45s cubic-bezier(.2,.8,.2,1) both}
+.docs li svg{flex:none;width:18px;height:18px;margin-top:2px;stroke:var(--ok);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+label.fl{display:block;font-size:13px;color:var(--ink-2);margin:0 0 6px}
+select{font:inherit;width:100%;padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink);margin-bottom:16px}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:20px}
+.slot{font:inherit;font-size:15px;padding:10px 0;border-radius:12px;border:1px solid var(--line);background:var(--bg);cursor:pointer;font-variant-numeric:tabular-nums;color:var(--ink)}
+.slot[aria-pressed="true"]{border-color:var(--accent);color:var(--accent);background:rgba(0,113,227,.06)}
+.slot:disabled{color:#b0b0b5;text-decoration:line-through;cursor:not-allowed}
+.confirm{margin-top:16px;padding:16px;border-radius:14px;background:rgba(29,138,75,.08);color:var(--ink);font-size:15px}
+.confirm b{color:var(--ok)}
+
+/* flusso */
+.flow{list-style:none;padding:0;margin:48px 0 0;display:grid;grid-template-columns:repeat(5,1fr);gap:16px;counter-reset:s}
+@media (max-width:900px){.flow{grid-template-columns:1fr 1fr}}
+@media (max-width:460px){.flow{grid-template-columns:1fr}}
+.flow li{counter-increment:s;padding:24px;border-radius:20px;background:var(--bg-alt);min-width:0}
+.flow li::before{content:counter(s);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--ink);color:#fff;font-size:14px;font-weight:600;margin-bottom:14px}
+.flow h4{margin:0 0 6px;font-family:var(--display);font-size:17px}
+.flow p{margin:0;color:var(--ink-2);font-size:14px}
+
+/* scadenze */
+.dead{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:48px}
+@media (max-width:760px){.dead{grid-template-columns:1fr}}
+.dl{background:var(--bg);border-radius:20px;padding:24px;min-width:0}
+.dl .when{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin:0 0 8px}
+.dl h4{font-family:var(--display);font-size:20px;margin:0 0 6px;letter-spacing:-.01em}
+.dl p{margin:0;color:var(--ink-2);font-size:15px}
+
+/* contatti */
+.contact{display:grid;grid-template-columns:1fr 1fr;gap:24px;align-items:start;margin-top:40px}
+@media (max-width:760px){.contact{grid-template-columns:1fr}}
+.contact dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:12px 24px;font-size:16px}
+.contact dt{color:var(--ink-2)}
+.contact dd{margin:0}
+footer{padding-block:32px;font-size:12px;color:var(--ink-2);border-top:1px solid var(--line)}
+
+/* movimento */
+@keyframes fadeUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.rv.in{animation:fadeUp .8s cubic-bezier(.2,.8,.2,1) both}
+.hero h1{animation:fadeUp 1s cubic-bezier(.2,.8,.2,1) both}
+.hero p.lead{animation:fadeUp 1s .12s cubic-bezier(.2,.8,.2,1) both}
+.hero .cta-row{animation:fadeUp 1s .24s cubic-bezier(.2,.8,.2,1) both}
+.progress{position:fixed;left:0;top:0;height:2px;background:var(--accent);width:0;z-index:30;transform-origin:left}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+
+/* scaduta */
+.expired{min-height:100vh;display:grid;place-items:center;text-align:center;padding:32px}
+.expired h1{font-size:clamp(32px,5vw,48px)}
+@media print{body{display:none}}
+</style>
+
+<div class="progress" id="progress"></div>
+
+<div id="app">
+<header class="demo-flag">
+  <div class="wrap">
+    <span class="brand">Sportello Servizi</span>
+    <nav class="links" aria-label="Sezioni">
+      <a href="#servizi">Servizi</a>
+      <a href="#documenti">Documenti e appuntamenti</a>
+      <a href="#scadenze">Scadenze</a>
+      <a href="#contatti">Contatti</a>
+    </nav>
+    <span class="tag">Demo dimostrativa</span>
+  </div>
+</header>
+
+<main>
+<section class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Patronato e assistenza fiscale</p>
+    <h1>Pratiche, pensioni e bonus. Senza code.</h1>
+    <p class="lead">Scopri subito quali documenti servono, prenota il tuo appuntamento e ricevi un avviso quando la pratica è pronta.</p>
+    <div class="cta-row">
+      <a class="btn primary" href="#documenti">Prenota un appuntamento</a>
+      <a class="btn ghost" href="#servizi">Vedi i servizi ›</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>2 min</b><span>per prenotare, anche di sera</span></div>
+      <div class="stat"><b>0</b><span>telefonate per sapere cosa portare</span></div>
+      <div class="stat"><b>24/7</b><span>risposte alle domande frequenti</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="servizi">
+  <div class="wrap">
+    <h2 class="rv">Tutto quello che ti serve, in un unico sportello.</h2>
+    <p class="sub rv">Assistenza gratuita per le pratiche di patronato e supporto per le pratiche fiscali più comuni.</p>
+    <div class="grid">
+      <article class="svc rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 12h18M12 3v18"/></svg></div><h3>NASpI</h3><p>Domanda di disoccupazione dopo la fine del rapporto di lavoro.</p></article>
+      <article class="svc rv"><div class="ico"><svg viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div><h3>ISEE</h3><p>Dichiarazione per accedere a bonus, agevolazioni e prestazioni.</p></article>
+      <article class="svc rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M5 4h14v16H5z"/><path d="M9 9h6M9 13h6"/></svg></div><h3>730</h3><p>Dichiarazione dei redditi con controllo delle spese detraibili.</p></article>
+      <article class="svc rv"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6"/></svg></div><h3>Pensioni</h3><p>Verifica dei requisiti, domanda e controllo della posizione.</p></article>
+      <article class="svc rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg></div><h3>Maternità</h3><p>Indennità e congedi per genitori lavoratori.</p></article>
+      <article class="svc rv"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M9 11h6"/></svg></div><h3>Bonus</h3><p>Assegno unico e altri sostegni previsti per la famiglia.</p></article>
+      <article class="svc rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M14 3H6v18h12V7z"/><path d="M14 3v4h4"/></svg></div><h3>Dimissioni</h3><p>Invio telematico delle dimissioni volontarie.</p></article>
+      <article class="svc rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 10l9-6 9 6v10H3z"/><path d="M9 20v-6h6v6"/></svg></div><h3>Successioni</h3><p>Dichiarazione di successione e visure catastali.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="band" id="documenti">
+  <div class="wrap">
+    <h2 class="rv">Arriva in sede con tutto pronto.</h2>
+    <p class="sub rv">Scegli la pratica: vedi subito i documenti da portare e prenoti l'orario che preferisci.</p>
+    <div class="tool">
+      <div class="panel rv">
+        <h3>Documenti da portare</h3>
+        <p class="hint">Elenco indicativo di esempio.</p>
+        <div class="chips" id="chips" role="group" aria-label="Tipo di pratica"></div>
+        <ul class="docs" id="docs"></ul>
+      </div>
+      <div class="panel rv">
+        <h3>Prenota l'appuntamento</h3>
+        <p class="hint">Disponibilità di esempio.</p>
+        <label class="fl" for="day">Giorno</label>
+        <select id="day"></select>
+        <label class="fl" id="slotlbl">Orario</label>
+        <div class="slots" id="slots" role="group" aria-labelledby="slotlbl"></div>
+        <button class="btn primary" id="book" type="button" style="width:100%;justify-content:center">Conferma prenotazione</button>
+        <div class="confirm" id="confirm" hidden></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt">
+  <div class="wrap">
+    <h2 class="rv">Dalla domanda alla pratica conclusa.</h2>
+    <p class="sub rv">Ogni passaggio avviene da solo. Tu pensi solo a seguire le persone.</p>
+    <ol class="flow">
+      <li class="rv"><h4>Scrive su WhatsApp</h4><p>Riceve subito la risposta e l'elenco dei documenti.</p></li>
+      <li class="rv"><h4>Prenota</h4><p>Sceglie giorno e orario, senza telefonare.</p></li>
+      <li class="rv"><h4>Promemoria</h4><p>Il giorno prima riceve l'avviso con cosa portare.</p></li>
+      <li class="rv"><h4>In sede</h4><p>La pratica è già aperta, con i documenti caricati.</p></li>
+      <li class="rv"><h4>Pratica pronta</h4><p>Riceve un messaggio appena è conclusa.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="band" id="scadenze">
+  <div class="wrap">
+    <h2 class="rv">Le scadenze te le ricordiamo noi.</h2>
+    <p class="sub rv">Un avviso automatico prima di ogni scadenza importante, così nessuno resta senza bonus o rimborsi.</p>
+    <div class="dead">
+      <div class="dl rv" style="background:var(--bg-alt)"><p class="when">Ogni anno a gennaio</p><h4>Rinnovo ISEE</h4><p>L'ISEE scade il 31 dicembre: ti avvisiamo per rinnovarlo in tempo.</p></div>
+      <div class="dl rv" style="background:var(--bg-alt)"><p class="when">Primavera</p><h4>Dichiarazione 730</h4><p>Ti ricordiamo quando inviarla e quali spese conservare.</p></div>
+      <div class="dl rv" style="background:var(--bg-alt)"><p class="when">Quando serve</p><h4>Prestazioni in scadenza</h4><p>Un messaggio prima che un sostegno o un permesso stia per terminare.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band alt" id="contatti">
+  <div class="wrap">
+    <h2 class="rv">Passa a trovarci.</h2>
+    <div class="contact">
+      <dl class="rv">
+        <dt>Indirizzo</dt><dd>Via Esempio 1, Città</dd>
+        <dt>Orari</dt><dd>Lun–Ven 9:00–13:00 · 15:30–18:30</dd>
+        <dt>WhatsApp</dt><dd>Numero di esempio</dd>
+      </dl>
+      <p class="sub rv">Assistenza anche a distanza: invii i documenti dal telefono e firmi in sede solo quando serve.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">Demo dimostrativa con nomi, indirizzi e orari di esempio. Non rappresenta un'attività reale.</div>
+</footer>
+</div>
+
+<script>
+(function(){
+  // Scadenza della demo: dopo questa data la pagina non si apre più
+  var EXPIRES = new Date('2026-11-12T23:59:59+01:00');
+  if (new Date() > EXPIRES) {
+    document.getElementById('app').innerHTML = '<div class="expired"><div><h1>Questa demo è scaduta.</h1><p class="sub" style="margin:16px auto 0">Per vederla di nuovo, chiedi un nuovo link a chi te l\'ha inviata.</p></div></div>';
+    return;
+  }
+
+  // Protezione: niente tasto destro, copia o trascinamento
+  ['contextmenu','copy','cut','dragstart','selectstart'].forEach(function(ev){
+    document.addEventListener(ev,function(e){ if(e.target.tagName!=='SELECT') e.preventDefault(); });
+  });
+  document.addEventListener('keydown',function(e){
+    var k=(e.key||'').toLowerCase();
+    if((e.ctrlKey||e.metaKey)&&(k==='s'||k==='p'||k==='u'||k==='c')) e.preventDefault();
+  });
+
+  // Documenti per pratica (esempio)
+  var DOCS = {
+    'NASpI':['Documento d\'identità e codice fiscale','Lettera di licenziamento o di fine contratto','Ultima busta paga','IBAN per l\'accredito'],
+    'ISEE':['Documento d\'identità e codici fiscali del nucleo familiare','Contratto d\'affitto registrato, se in affitto','Saldo e giacenza media dei conti correnti','Targhe di auto e moto di proprietà'],
+    '730':['Certificazione Unica (CU) dell\'anno','Scontrini e fatture delle spese mediche','Interessi del mutuo prima casa, se presenti','Documento d\'identità'],
+    'Pensione':['Documento d\'identità e codice fiscale','Estratto conto contributivo, se disponibile','IBAN per l\'accredito'],
+    'Maternità':['Documento d\'identità e codice fiscale','Certificato medico di gravidanza','Dati del datore di lavoro','IBAN per l\'accredito']
+  };
+  var chips=document.getElementById('chips'), docs=document.getElementById('docs');
+  var check='<svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  function show(name){
+    [].forEach.call(chips.children,function(c){c.setAttribute('aria-pressed',c.textContent===name?'true':'false')});
+    docs.innerHTML=DOCS[name].map(function(d,i){return '<li style="animation-delay:'+(i*60)+'ms">'+check+'<span>'+d+'</span></li>'}).join('');
+  }
+  Object.keys(DOCS).forEach(function(n){
+    var b=document.createElement('button'); b.type='button'; b.className='chip'; b.textContent=n;
+    b.addEventListener('click',function(){show(n)}); chips.appendChild(b);
+  });
+  show('NASpI');
+
+  // Prenotazione simulata
+  var daySel=document.getElementById('day'), slots=document.getElementById('slots'), confirmBox=document.getElementById('confirm');
+  var giorni=['Lunedì','Martedì','Mercoledì','Giovedì','Venerdì'];
+  giorni.forEach(function(g,i){var o=document.createElement('option');o.value=i;o.textContent=g+' · esempio';daySel.appendChild(o)});
+  var ORE=['9:00','9:30','10:00','10:30','11:00','11:30','15:30','16:00','17:00'];
+  var picked=null;
+  function renderSlots(){
+    slots.innerHTML=''; picked=null; confirmBox.hidden=true;
+    var seed=+daySel.value;
+    ORE.forEach(function(h,i){
+      var b=document.createElement('button'); b.type='button'; b.className='slot'; b.textContent=h;
+      b.setAttribute('aria-pressed','false');
+      if((i+seed)%4===1) b.disabled=true;
+      b.addEventListener('click',function(){
+        [].forEach.call(slots.children,function(s){s.setAttribute('aria-pressed','false')});
+        b.setAttribute('aria-pressed','true'); picked=h; confirmBox.hidden=true;
+      });
+      slots.appendChild(b);
+    });
+  }
+  daySel.addEventListener('change',renderSlots); renderSlots();
+  document.getElementById('book').addEventListener('click',function(){
+    var pr=[].filter.call(chips.children,function(c){return c.getAttribute('aria-pressed')==='true'})[0];
+    confirmBox.hidden=false;
+    if(!picked){confirmBox.innerHTML='Scegli prima un orario.';return;}
+    confirmBox.innerHTML='<b>Prenotazione simulata.</b> '+(pr?pr.textContent:'Pratica')+', '+giorni[+daySel.value]+' alle '+picked+'. Nella versione reale arriva subito una conferma su WhatsApp e un promemoria il giorno prima.';
+  });
+
+  // Movimento allo scroll
+  var io='IntersectionObserver' in window ? new IntersectionObserver(function(es){
+    es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  },{threshold:.15}) : null;
+  document.querySelectorAll('.rv').forEach(function(el,i){
+    el.style.animationDelay=((i%4)*70)+'ms';
+    if(io) io.observe(el);
+  });
+  var bar=document.getElementById('progress');
+  window.addEventListener('scroll',function(){
+    var h=document.documentElement.scrollHeight-innerHeight;
+    bar.style.width=(h>0?(scrollY/h*100):0)+'%';
+  },{passive:true});
+})();
+</script>
+
+</body></html>
